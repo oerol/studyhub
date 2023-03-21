@@ -40,6 +40,17 @@ public class User {
     @JsonProperty("birthdate")
     private LocalDate birthDate;
 
+    public User(String username, String email, String password, String firstName, String lastName, LocalDate birthDate) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+    }
+
+    public User() {}
+
     public Long getId() {
         return id;
     }
