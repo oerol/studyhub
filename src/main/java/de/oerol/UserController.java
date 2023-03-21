@@ -1,8 +1,11 @@
 package de.oerol;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -22,7 +25,12 @@ public class UserController {
     }
 
     @PostMapping("")
-    public User saveUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public ResponseEntity<?> saveUser(@RequestBody User user) {
+        if (userService.isEmailAlreadyRegistered(user.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User with email already exists");
+        } else {
+            userService.saveUser(user);
+            return ResponseEntity.created(URI.create("ay")).body(user);
+        }
     }
 }

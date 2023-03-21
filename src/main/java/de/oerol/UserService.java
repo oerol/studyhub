@@ -21,4 +21,9 @@ public class UserService {
     public User saveUser(User user) {
         return userRepository.save(user);
     }
+
+    public boolean isEmailAlreadyRegistered(String email) {
+        User user = userRepository.findByEmail(email);
+        return user != null;
+    }
 }
