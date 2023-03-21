@@ -26,7 +26,9 @@ public class UserController {
 
     @PostMapping("")
     public ResponseEntity<?> saveUser(@RequestBody User user) {
-        if (userService.isEmailAlreadyRegistered(user.getEmail())) {
+        if (userService.isUsernameAlreadyRegistered(user.getUsername())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("User with username already exists");
+        } else if (userService.isEmailAlreadyRegistered(user.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User with email already exists");
         } else {
             userService.saveUser(user);

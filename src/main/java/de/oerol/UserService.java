@@ -22,6 +22,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public boolean isUsernameAlreadyRegistered(String username) {
+        User user = userRepository.findByUsername(username);
+        return user != null;
+    }
+
     public boolean isEmailAlreadyRegistered(String email) {
         User user = userRepository.findByEmail(email);
         return user != null;
